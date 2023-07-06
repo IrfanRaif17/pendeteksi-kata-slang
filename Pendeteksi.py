@@ -196,28 +196,30 @@ def main():
                 kata_tidak_baku_unik = set([kata for sublist in df_data['kata_tidak_baku_clean'] for kata in sublist])
 
                 st.write("Kata Tidak Baku:")
-                if kata_tidak_baku_unik:
+                
+                # Fungsi untuk mengekspor ke file teks dan menghasilkan tautan unduh
+                def export_to_txt(kata_tidak_baku_unik, output_file):
+                    data = ''
+                    for kata in kata_tidak_baku_unik:
+                        data += f"'{kata}':'....',\n"
+
+                    # Convert data to bytes
+                    data_bytes = data.encode('utf-8')
+
+                    # Create base64 encoding
+                    b64_data = base64.b64encode(data_bytes).decode('utf-8')
+
+                    # Create href tag to download the file
+                    href = f'<a href="data:text/plain;base64,{b64_data}" download="{output_file}">Download File</a>'
+
+                    # Display the download link
+                    st.markdown(href, unsafe_allow_html=True)
+
                     # Export to text file
                     if st.button("Export ke TXT"):
-                        file_name = ("kamus_slang_new.txt")
-                        try:
-                            export_to_txt(kata_tidak_baku_unik, file_name)
-                            st.success(f"Data kata tidak baku telah diekspor ke file: {file_name}")
-                        except Exception as e:
-                            st.error("Terjadi kesalahan dalam proses ekspor ke TXT.")
-                            st.error(str(e))
-
-                    # Export to CSV file
-                    if st.button("Export ke CSV"):
-                        file_name = ("kamus_slang_new.csv")
-                        try:
-                            export_to_csv(kata_tidak_baku_unik, file_name)
-                            st.success(f"Data kata tidak baku telah diekspor ke file: {file_name}")
-                        except Exception as e:
-                            st.error("Terjadi kesalahan dalam proses ekspor ke CSV.")
-                            st.error(str(e))
-                else:
-                    st.write("Tidak ada kata tidak baku.")
+                        file_name = "kamus_slang_new.txt"
+                        export_to_txt(kata_tidak_baku_unik, file_name)
+                        st.success(f"File telah diekspor: {file_name}")
 
         except Exception as e:
             st.error("Terjadi kesalahan dalam membaca file.")
