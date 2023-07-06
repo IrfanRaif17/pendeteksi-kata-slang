@@ -229,8 +229,6 @@ def main():
                     with open(file_path, 'rb') as file:
                         contents = file.read()
                         base64_encoded = base64.b64encode(contents).decode()
-                        href = f"data:text/{file_type};base64,{base64_encoded}"
-                        button = f'<a href="{href}" download="{file_path}"><button>Download {file_type}</button></a>'
                         href = f'<a href="data:text/{file_type};base64,{base64_encoded}" download="{file_path}">Download {file_type}</a>'
                     return href
 
