@@ -197,7 +197,6 @@ def main():
 
                 st.write("Kata Tidak Baku:")
                 
-                
                 # Fungsi untuk mengekspor ke file teks dan menghasilkan tautan unduh
                 def export_to_txt(kata_tidak_baku_unik, output_file):
                     with open(output_file, 'w', encoding='utf-8') as f:
@@ -210,39 +209,40 @@ def main():
                     # Display the download link
                     st.markdown(href, unsafe_allow_html=True)
 
-                    # Fungsi untuk mengekspor ke file CSV dan menghasilkan tautan unduh
-                    def export_to_csv(kata_tidak_baku_unik, output_file):
-                        data = []
-                        for kata in kata_tidak_baku_unik:
-                            data.append([kata, "...."])
+# Fungsi untuk mengekspor ke file CSV dan menghasilkan tautan unduh
+                def export_to_csv(kata_tidak_baku_unik, output_file):
+                    data = []
+                    for kata in kata_tidak_baku_unik:
+                        data.append([kata, "...."])
 
-                        df_output = pd.DataFrame(data, columns=["tidak_baku", "normalisasi"])
-                        df_output.to_csv(output_file, index=False, encoding='utf-8')
+                    df_output = pd.DataFrame(data, columns=["tidak_baku", "normalisasi"])
+                    df_output.to_csv(output_file, index=False, encoding='utf-8')
 
-                        # Create href tag to download the file
-                        href = get_download_link(output_file, 'CSV')
+                    # Create href tag to download the file
+                    href = get_download_link(output_file, 'CSV')
 
-                        # Display the download link
-                        st.markdown(href, unsafe_allow_html=True)
+                    # Display the download link
+                    st.markdown(href, unsafe_allow_html=True)
 
-                    # Fungsi untuk menghasilkan tautan unduh file
-                    def get_download_link(file_path, file_type):
-                        with open(file_path, 'rb') as file:
-                            contents = file.read()
-                            base64_encoded = base64.b64encode(contents).decode()
-                            href = f'<a href="data:text/{file_type};base64,{base64_encoded}" download="{file_path}">Download {file_type}</a>'
-                        return href
-                    # Export to text file
-                    if st.button("Export ke TXT"):
-                        file_name = "kamus_slang_new.txt"
-                        export_to_txt(kata_tidak_baku_unik, file_name)
-                        st.success(f"Data kata tidak baku telah diekspor ke file: {file_name}")
+                # Fungsi untuk menghasilkan tautan unduh file
+                def get_download_link(file_path, file_type):
+                    with open(file_path, 'rb') as file:
+                        contents = file.read()
+                        base64_encoded = base64.b64encode(contents).decode()
+                        href = f'<a href="data:text/{file_type};base64,{base64_encoded}" download="{file_path}">Download {file_type}</a>'
+                    return href
 
-                    # Export to CSV file
-                    if st.button("Export ke CSV"):
-                        file_name = "kamus_slang_new.csv"
-                        export_to_csv(kata_tidak_baku_unik, file_name)
-                        st.success(f"Data kata tidak baku telah diekspor ke file: {file_name}")
+                # Export to text file
+                if st.button("Export ke TXT"):
+                    file_name = "kamus_slang_new.txt"
+                    export_to_txt(kata_tidak_baku_unik, file_name)
+                    st.success(f"Data kata tidak baku telah diekspor ke file: {file_name}")
+
+                # Export to CSV file
+                if st.button("Export ke CSV"):
+                    file_name = "kamus_slang_new.csv"
+                    export_to_csv(kata_tidak_baku_unik, file_name)
+                    st.success(f"Data kata tidak baku telah diekspor ke file: {file_name}")
 
         except Exception as e:
             st.error("Terjadi kesalahan dalam membaca file.")
