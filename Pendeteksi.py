@@ -13,6 +13,7 @@ with open('styles.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # Set up stopwords and stemmer
+nltk.download('stopwords')
 stopwords = set(nltk.corpus.stopwords.words('indonesian'))
 stemmer = PorterStemmer()
 
