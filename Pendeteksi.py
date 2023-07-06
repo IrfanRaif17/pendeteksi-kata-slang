@@ -14,6 +14,7 @@ with open('styles.css') as f:
 
 # Set up stopwords and stemmer
 nltk.download('stopwords')
+nltk.download('punkt')
 stopwords = set(nltk.corpus.stopwords.words('indonesian'))
 stemmer = PorterStemmer()
 
