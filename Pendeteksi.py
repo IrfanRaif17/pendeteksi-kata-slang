@@ -196,7 +196,7 @@ def main():
                 kata_tidak_baku_unik = set([kata for sublist in df_data['kata_tidak_baku_clean'] for kata in sublist])
 
                 st.write("Kata Tidak Baku:")
-                
+
                 # Fungsi untuk mengekspor ke file teks dan menghasilkan tautan unduh
                 def export_to_txt(kata_tidak_baku_unik, output_file):
                     with open(output_file, 'w', encoding='utf-8') as f:
@@ -209,7 +209,7 @@ def main():
                     # Display the download link
                     st.markdown(href, unsafe_allow_html=True)
 
-            # Fungsi untuk mengekspor ke file CSV dan menghasilkan tautan unduh
+                # Fungsi untuk mengekspor ke file CSV dan menghasilkan tautan unduh
                 def export_to_csv(kata_tidak_baku_unik, output_file):
                     data = []
                     for kata in kata_tidak_baku_unik:
@@ -224,7 +224,7 @@ def main():
                     # Display the download link
                     st.markdown(href, unsafe_allow_html=True)
 
-# Fungsi untuk menghasilkan tautan unduh file
+                # Fungsi untuk menghasilkan tautan unduh file
                 def get_download_link(file_path, file_type):
                     with open(file_path, 'rb') as file:
                         contents = file.read()
